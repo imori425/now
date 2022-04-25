@@ -17,13 +17,18 @@ const Home: NextPage = () => {
     });
 
 
-    const japaneseDate = new Intl.DateTimeFormat('ja-JP-u-ca-japanese', {
+    let japaneseDate = new Intl.DateTimeFormat('ja-JP-u-ca-japanese', {
         era: 'long',
         year: 'numeric',
         month: 'numeric',
         day: 'numeric',
         weekday: 'long'
     }).format(datetime)
+
+    if(!japaneseDate.startsWith("令和")){
+        japaneseDate = "令和" + japaneseDate;
+    }
+
 
     const localDateTime = LocalDateTime.from(nativeJs(new Date()));
     const englishDate = localDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd EEEE").withLocale(Locale.ENGLISH))
@@ -45,12 +50,12 @@ const Home: NextPage = () => {
                     <input type="checkbox"/>
                     <div className="swap-on">
                         <div className="text-6xl font-bold">
-                            {japaneseDate}
+                            {englishDate}
                         </div>
                     </div>
                     <div className="swap-off">
                         <div className="text-6xl font-bold">
-                            {englishDate}
+                            {japaneseDate}
                         </div>
                     </div>
                 </label>
